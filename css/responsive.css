@@ -1,0 +1,173 @@
+/* Responsive Design */
+
+/* Tablettes */
+@media (max-width: 992px) {
+    .dashboard-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Smartphones et petites tablettes */
+@media (max-width: 768px) {
+    /* Afficher le bouton de menu mobile */
+    .mobile-menu-toggle {
+        display: block;
+    }
+
+    /* Cacher la sidebar par défaut et ajouter animation */
+    .sidebar {
+        transform: translateX(-100%);
+        z-index: 150;
+    }
+
+    /* Afficher la sidebar quand active */
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    /* Enlever la marge du contenu principal */
+    .main-content {
+        margin-left: 0;
+    }
+
+    /* Ajuster le logo pour faire de la place au bouton de menu */
+    .logo-container {
+        margin-left: 40px;
+    }
+
+    /* Une seule colonne pour les cartes de tableau de bord */
+    .dashboard-summary {
+        grid-template-columns: 1fr;
+    }
+
+    /* Ajuster la taille des textes */
+    .page-title {
+        font-size: 1.5rem;
+    }
+
+    .card-value {
+        font-size: 1.5rem;
+    }
+
+    /* Adapter les modales */
+    .modal {
+        width: 95%;
+        padding: 1rem;
+    }
+
+    /* Adapter les formulaires */
+    .form-group {
+        margin-bottom: 0.8rem;
+    }
+
+    /* Adapter les tableaux pour être responsive */
+    .data-table, .data-table thead, .data-table tbody, .data-table th, .data-table td, .data-table tr {
+        display: block;
+    }
+
+    .data-table thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .data-table tr {
+        border: 1px solid #eee;
+        margin-bottom: 1rem;
+        border-radius: 6px;
+    }
+
+    .data-table td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+        text-align: right;
+    }
+
+    .data-table td:last-child {
+        border-bottom: 0;
+    }
+
+    .data-table td:before {
+        position: absolute;
+        top: 0.8rem;
+        left: 0.8rem;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+        content: attr(data-label);
+    }
+
+    /* Ajuster les actions de tableau */
+    .table-actions {
+        justify-content: flex-end;
+    }
+
+    /* Ajuster les boutons d'action */
+    .action-button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+    }
+
+    /* Ajuster l'en-tête des sections */
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+}
+
+/* Très petits écrans */
+@media (max-width: 480px) {
+    /* Réduire davantage la taille des textes */
+    .page-title {
+        font-size: 1.3rem;
+    }
+
+    .card-title {
+        font-size: 0.9rem;
+    }
+
+    .card-value {
+        font-size: 1.3rem;
+    }
+
+    .card-subtitle {
+        font-size: 0.8rem;
+    }
+
+    /* Réduire l'espacement */
+    .main-content {
+        padding: 1rem;
+    }
+
+    section {
+        padding: 1rem;
+    }
+
+    /* Ajuster l'en-tête */
+    .app-name {
+        display: none; /* Cacher le nom de l'app sur les très petits écrans */
+    }
+
+    .user-email {
+        font-size: 0.8rem;
+        max-width: 150px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Adapter les modales actions */
+    .modal-actions {
+        flex-direction: column;
+    }
+
+    .modal-actions button {
+        width: 100%;
+        margin-top: 0.5rem;
+    }
+}

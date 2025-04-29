@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinanceHelper - Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <header>
+        <button class="mobile-menu-toggle">☰</button>
+        <div class="logo-container">
+            <div class="logo">💰</div>
+            <div class="app-name">FinanceHelper</div>
+        </div>
+        <div class="user-menu">
+            <div class="user-email" id="user-email">utilisateur@exemple.com</div>
+            <button class="logout-btn" id="logout-btn">Déconnexion</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="nav-section">
+                <div class="nav-section-title">Principal</div>
+                <div class="nav-item active" data-section="dashboard">
+                    <div class="nav-item-icon">📊</div>
+                    <div class="nav-item-text">Tableau de bord</div>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Finances</div>
+                <div class="nav-item" data-section="income">
+                    <div class="nav-item-icon">💰</div>
+                    <div class="nav-item-text">Revenus</div>
+                </div>
+                <div class="nav-item" data-section="subscriptions">
+                    <div class="nav-item-icon">📑</div>
+                    <div class="nav-item-text">Abonnements</div>
+                </div>
+                <div class="nav-item" data-section="expenses">
+                    <div class="nav-item-icon">🛒</div>
+                    <div class="nav-item-text">Dépenses</div>
+                </div>
+                <div class="nav-item" data-section="savings">
+                    <div class="nav-item-icon">🏦</div>
+                    <div class="nav-item-text">Épargne</div>
+                </div>
+                <div class="nav-item" data-section="investments">
+                    <div class="nav-item-icon">📈</div>
+                    <div class="nav-item-text">Investissements</div>
+                </div>
+                <div class="nav-item" data-section="debt">
+                    <div class="nav-item-icon">🧾</div>
+                    <div class="nav-item-text">Dettes</div>
+                </div>
+                <div class="nav-item" data-section="loaners">
+                    <div class="nav-item-icon">🧍‍♂️</div>
+                    <div class="nav-item-text">Prêts aux autres</div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="active">
+                <h1 class="page-title">Tableau de bord</h1>
+
+                <div class="dashboard-summary">
+                    <div class="summary-card">
+                        <div class="card-header">
+                            <div class="card-title">Revenus mensuels</div>
+                            <div class="card-icon income-icon">💰</div>
+                        </div>
+                        <div class="card-value" id="income-value">0 €</div>
+                        <div class="card-subtitle">Salaire et autres revenus</div>
+                    </div>
+
+                    <div class="summary-card">
+                        <div class="card-header">
+                            <div class="card-title">Dépenses mensuelles</div>
+                            <div class="card-icon expenses-icon">🛒</div>
+                        </div>
+                        <div class="card-value" id="expenses-value">0 €</div>
+                        <div class="card-subtitle">Abonnements et dépenses quotidiennes</div>
+                    </div>
+
+                    <div class="summary-card">
+                        <div class="card-header">
+                            <div class="card-title">Épargne actuelle</div>
+                            <div class="card-icon savings-icon">🏦</div>
+                        </div>
+                        <div class="card-value" id="savings-value">0 €</div>
+                        <div class="card-subtitle">Progression vers vos objectifs</div>
+                    </div>
+
+                    <div class="summary-card">
+                        <div class="card-header">
+                            <div class="card-title">Investissements</div>
+                            <div class="card-icon investments-icon">📈</div>
+                        </div>
+                        <div class="card-value" id="investments-value">0 €</div>
+                        <div class="card-subtitle">Capital investi</div>
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <div class="card-header">
+                        <div class="card-title">Solde disponible ce mois-ci</div>
+                    </div>
+                    <div class="card-value" id="balance-value">0 €</div>
+                    <div class="card-subtitle">après abonnements et dépenses planifiées</div>
+                </div>
+            </section>
+
+            <!-- Income Section -->
+            <section id="income">
+                <div class="section-header">
+                    <h2 class="section-title">Gestion des revenus</h2>
+                    <button class="action-button" id="add-income-btn">+ Ajouter un revenu</button>
+                </div>
+
+                <div class="summary-card">
+                    <div class="card-header">
+                        <div class="card-title">Salaire mensuel</div>
+                    </div>
+                    <div class="card-value" id="salary-value">0 €</div>
+                    <button class="action-button" id="edit-salary-btn" style="margin-top: 1rem;">Modifier</button>
+                </div>
+
+                <div class="section-header" style="margin-top: 2rem;">
+                    <h3 class="section-title">Autres revenus</h3>
+                </div>
+
+                <table class="data-table" id="other-income-table">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Montant</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="other-income-body">
+                        <!-- Other income items will be inserted here -->
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Subscriptions Section -->
+            <section id="subscriptions">
+                <div class="section-header">
+                    <h2 class="section-title">Gestion des abonnements</h2>
+                    <button class="action-button" id="add-subscription-btn">+ Ajouter un abonnement</button>
+                </div>
+
+                <table class="data-table" id="subscriptions-table">
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Montant</th>
+                            <th>Fréquence</th>
+                            <th>Date de prélèvement</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="subscriptions-body">
+                        <!-- Subscription items will be inserted here -->
+                    </tbody>
+                </table>
+
+                <div class="summary-card" style="margin-top: 2rem;">
+                    <div class="card-header">
+                        <div class="card-title">Total des abonnements mensuels</div>
+                    </div>
+                    <div class="card-value" id="subscriptions-total">0 €</div>
+                </div>
+            </section>
+
+            <!-- Expenses Section -->
+            <section id="expenses">
+                <div class="section-header">
+                    <h2 class="section-title">Dépenses quotidiennes</h2>
+                    <button class="action-button" id="add-expense-btn">+ Ajouter une dépense</button>
+                </div>
+
+                <table class="data-table" id="expenses-table">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Montant</th>
+                            <th>Catégorie</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="expenses-body">
+                        <!-- Expense items will be inserted here -->
+                    </tbody>
+                </table>
+
+                <div class="summary-card" style="margin-top: 2rem;">
+                    <div class="card-header">
+                        <div class="card-title">Total des dépenses ce mois-ci</div>
+                    </div>
+                    <div class="card-value" id="expenses-total">0 €</div>
+                </div>
+            </section>
+
+            <!-- Savings Section -->
+            <section id="savings">
+                <div class="section-header">
+                    <h2 class="section-title">Gestion de l'épargne</h2>
+                </div>
+
+                <div class="summary-card">
+                    <div class="card-header">
+                        <div class="card-title">Épargne actuelle</div>
+                    </div>
+                    <div class="card-value" id="current-savings">0 €</div>
+                    <button class="action-button" id="edit-savings-btn" style="margin-top: 1rem;">Modifier</button>
+                </div>
+
+                <div class="section-header" style="margin-top: 2rem;">
+                    <h3 class="section-title">Objectifs d'épargne</h3>
+                    <button class="action-button" id="add-goal-btn">+ Ajouter un objectif</button>
+                </div>
+
+                <div id="savings-goals">
+                    <!-- Savings goals will be inserted here -->
+                </div>
+            </section>
+
+            <!-- Investments Section -->
+            <section id="investments">
+                <div class="section-header">
+                    <h2 class="section-title">Gestion des investissements</h2>
+                </div>
+
+                <div class="summary-card">
+                    <div class="card-header">
+                        <div class="card-title">Capital actuellement investi</div>
+                    </div>
+                    <div class="card-value" id="current-investments">0 €</div>
+                    <button class="action-button" id="edit-investments-btn" style="margin-top: 1rem;">Modifier</button>
+                </div>
+
+                <div class="summary-card" style="margin-top: 2rem;">
+                    <div class="card-header">
+                        <div class="card-title">Capacité d'investissement mensuelle</div>
+                    </div>
+                    <div class="card-value" id="monthly-investment-capacity">0 €</div>
+                    <div class="card-subtitle">Calculé automatiquement après épargne et dépenses</div>
+                </div>
+            </section>
+
+            <!-- Debt Section -->
+            <section id="debt">
+                <div class="section-header">
+                    <h2 class="section-title">Gestion des dettes</h2>
+                    <button class="action-button" id="add-debt-btn">+ Ajouter une dette</button>
+                </div>
+
+                <table class="data-table" id="debt-table">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Montant initial</th>
+                            <th>Montant restant</th>
+                            <th>Taux d'intérêt</th>
+                            <th>Paiement mensuel</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="debt-body">
+                        <!-- Debt items will be inserted here -->
+                    </tbody>
+                </table>
+
+                <div class="summary-card" style="margin-top: 2rem;">
+                    <div class="card-header">
+                        <div class="card-title">Total des dettes</div>
+                    </div>
+                    <div class="card-value" id="debt-total">0 €</div>
+                </div>
+            </section>
+
+            <!-- Loaners Section -->
+            <section id="loaners">
+                <div class="section-header">
+                    <h2 class="section-title">Personnes qui vous doivent de l'argent</h2>
+                    <button class="action-button" id="add-loaner-btn">+ Ajouter un prêt</button>
+                </div>
+
+                <table class="data-table" id="loaners-table">
+                    <thead>
+                        <tr>
+                            <th>Personne</th>
+                            <th>Montant</th>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="loaners-body">
+                        <!-- Loaner items will be inserted here -->
+                    </tbody>
+                </table>
+
+                <div class="summary-card" style="margin-top: 2rem;">
+                    <div class="card-header">
+                        <div class="card-title">Total des prêts en cours</div>
+                    </div>
+                    <div class="card-value" id="loaners-total">0 €</div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <!-- Add Income Modal -->
+    <div class="modal-backdrop" id="income-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title" id="income-modal-title">Ajouter un revenu</h3>
+                <button class="close-modal" id="close-income-modal">&times;</button>
+            </div>
+            <form id="income-form">
+                <div class="form-group">
+                    <label for="income-description">Description</label>
+                    <input type="text" id="income-description" required>
+                </div>
+                <div class="form-group">
+                    <label for="income-amount">Montant (€)</label>
+                    <input type="number" id="income-amount" min="0" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="income-date">Date</label>
+                    <input type="date" id="income-date" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="cancel-button" id="cancel-income">Annuler</button>
+                    <button type="submit" class="action-button">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Salary Modal -->
+    <div class="modal-backdrop" id="salary-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Modifier votre salaire</h3>
+                <button class="close-modal" id="close-salary-modal">&times;</button>
+            </div>
+            <form id="salary-form">
+                <div class="form-group">
+                    <label for="salary-amount">Salaire mensuel (€)</label>
+                    <input type="number" id="salary-amount" min="0" step="0.01" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="cancel-button" id="cancel-salary">Annuler</button>
+                    <button type="submit" class="action-button">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Subscription Modal -->
+    <div class="modal-backdrop" id="subscription-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title" id="subscription-modal-title">Ajouter un abonnement</h3>
+                <button class="close-modal" id="close-subscription-modal">&times;</button>
+            </div>
+            <form id="subscription-form">
+                <div class="form-group">
+                    <label for="subscription-service">Service</label>
+                    <input type="text" id="subscription-service" required>
+                </div>
+                <div class="form-group">
+                    <label for="subscription-amount">Montant (€)</label>
+                    <input type="number" id="subscription-amount" min="0" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="subscription-frequency">Fréquence</label>
+                    <select id="subscription-frequency" required>
+                        <option value="monthly">Mensuel</option>
+                        <option value="quarterly">Trimestriel</option>
+                        <option value="yearly">Annuel</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="subscription-date">Date de prélèvement</label>
+                    <input type="date" id="subscription-date" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="cancel-button" id="cancel-subscription">Annuler</button>
+                    <button type="submit" class="action-button">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Expense Modal -->
+    <div class="modal-backdrop" id="expense-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title" id="expense-modal-title">Ajouter une dépense</h3>
+                <button class="close-modal" id="close-expense-modal">&times;</button>
+            </div>
+            <form id="expense-form">
+                <div class="form-group">
+                    <label for="expense-description">Description</label>
+                    <input type="text" id="expense-description" required>
+                </div>
+                <div class="form-group">
+                    <label for="expense-amount">Montant (€)</label>
+                    <input type="number" id="expense-amount" min="0" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="expense-category">Catégorie</label>
+                    <select id="expense-category" required>
+                        <option value="food">Alimentation</option>
+                        <option value="transport">Transport</option>
+                        <option value="leisure">Loisirs</option>
+                        <option value="shopping">Shopping</option>
+                        <option value="health">Santé</option>
+                        <option value="other">Autre</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="expense-date">Date</label>
+                    <input type="date" id="expense-date" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="cancel-button" id="cancel-expense">Annuler</button>
+                    <button type="submit" class="action-button">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Savings Modal -->
+    <div class="modal-backdrop" id="savings-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Modifier votre épargne</h3>
+                <button class="close-modal" id="close-savings-modal">&times;</button>
+            </div>
+            <form id="savings-form">
+                <div class="form-group">
+                    <label for="savings-amount">Épargne actuelle (€)</label>
+                    <input type="number" id="savings-amount" min="0" step="0.01" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="cancel-button" id="cancel-savings">Annuler</button>
+                    <button type="submit" class="action-button">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Savings Goal Modal -->
+    <div class="modal-backdrop" id="goal-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title" id="goal-modal-title">Ajouter un objectif d'épargne</h3>
+                <button class="close-modal" id="close-goal-modal">&times;</button>
+            </div>
+            <form id="goal-form">
+                <div class="form-group">
+                    <label for="goal-description">Description</label>
+                    <input type="text" id="goal-description" required>
+                </div>
+                <div class="form-group">
+                    <label for="goal-amount">Montant cible (€)</label>
+                    <input type="number" id="goal-amount" min="0" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="goal-date">Date cible</label>
+                    <input type="date" id="goal-date" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="cancel-button" id="cancel-goal">Annuler</button>
+                    <button type="submit" class="action-button">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Investments Modal -->
+    <div class="modal-backdrop" id="investments-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Modifier vos investissements</h3>
+                <button class="close-modal" id="close-investments-modal">&times;</button>
+            </div>
+            <form id="investments-form">
+                <div class="form-group">
+                    <label for="investments-amount">Capital investi (€)</label>
+                    <input type="number" id="investments-amount" min="0" step="0.01" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="cancel-button" id="cancel-investments">Annuler</button>
+                    <button type="submit" class="action-button">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Debt Modal -->
+    <div class="modal-backdrop" id="debt-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title" id="debt-modal-title">Ajouter une dette</h3>
+                <button class="close-modal" id="close-debt-modal">&times;</button>
+            </div>
+            <form id="debt-form">
+                <div class="form-group">
+                    <label for="debt-description">Description</label>
+                    <input type="text" id="debt-description" required>
+                </div>
+                <div class="form-group">
+                    <label for="debt-initial">Montant initial (€)</label>
+                    <input type="number" id="debt-initial" min="0" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="debt-remaining">Montant restant (€)</label>
+                    <input type="number" id="debt-remaining" min="0" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="debt-rate">Taux d'intérêt (%)</label>
+                    <input type="number" id="debt-rate" min="0" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="debt-payment">Paiement mensuel (€)</label>
+                    <input type="number" id="debt-payment" min="0" step="0.01" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="cancel-button" id="cancel-debt">Annuler</button>
+                    <button type="submit" class="action-button">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Loaner Modal -->
+    <div class="modal-backdrop" id="loaner-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title" id="loaner-modal-title">Ajouter un prêt</h3>
+                <button class="close-modal" id="close-loaner-modal">&times;</button>
+            </div>
+            <form id="loaner-form">
+                <div class="form-group">
+                    <label for="loaner-person">Personne</label>
+                    <input type="text" id="loaner-person" required>
+                </div>
+                <div class="form-group">
+                    <label for="loaner-amount">Montant (€)</label>
+                    <input type="number" id="loaner-amount" min="0" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="loaner-date">Date</label>
+                    <input type="date" id="loaner-date" required>
+                </div>
+                <div class="form-group">
+                    <label for="loaner-description">Description</label>
+                    <input type="text" id="loaner-description" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="cancel-button" id="cancel-loaner">Annuler</button>
+                    <button type="submit" class="action-button">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+  <!-- Script pour corriger l'affichage après connexion et la navigation -->
+   <!-- Script pour réparer les modales -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Fonction pour ouvrir une modale
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                console.log(`Ouverture de la modale: ${modalId}`);
+                modal.style.display = 'flex';
+            } else {
+                console.error(`Modale non trouvée: ${modalId}`);
+            }
+        }
+        
+        // Fonction pour fermer une modale
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        }
+        
+        // Initialiser les gestionnaires pour le bouton Ajouter un revenu
+        const addIncomeBtn = document.getElementById('add-income-btn');
+        if (addIncomeBtn) {
+            addIncomeBtn.addEventListener('click', function() {
+                openModal('income-modal');
+            });
+        }
+        
+        // Initialiser les gestionnaires pour le bouton Ajouter un abonnement
+        const addSubscriptionBtn = document.getElementById('add-subscription-btn');
+        if (addSubscriptionBtn) {
+            addSubscriptionBtn.addEventListener('click', function() {
+                openModal('subscription-modal');
+            });
+        }
+        
+        // Initialiser les gestionnaires pour le bouton Ajouter une dépense
+        const addExpenseBtn = document.getElementById('add-expense-btn');
+        if (addExpenseBtn) {
+            addExpenseBtn.addEventListener('click', function() {
+                openModal('expense-modal');
+            });
+        }
+        
+        // Initialiser les gestionnaires pour le bouton Ajouter un objectif d'épargne
+        const addGoalBtn = document.getElementById('add-goal-btn');
+        if (addGoalBtn) {
+            addGoalBtn.addEventListener('click', function() {
+                openModal('goal-modal');
+            });
+        }
+        
+        // Initialiser les gestionnaires pour le bouton Ajouter une dette
+        const addDebtBtn = document.getElementById('add-debt-btn');
+        if (addDebtBtn) {
+            addDebtBtn.addEventListener('click', function() {
+                openModal('debt-modal');
+            });
+        }
+        
+        // Initialiser les gestionnaires pour le bouton Ajouter un prêt
+        const addLoanerBtn = document.getElementById('add-loaner-btn');
+        if (addLoanerBtn) {
+            addLoanerBtn.addEventListener('click', function() {
+                openModal('loaner-modal');
+            });
+        }
+        
+        // Initialiser les boutons pour fermer les modales
+        document.querySelectorAll('.close-modal, .cancel-button').forEach(button => {
+            button.addEventListener('click', function() {
+                // Trouver la modale parente
+                let modal = this.closest('.modal-backdrop');
+                if (modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+        
+        // Initialiser les gestionnaires pour les formulaires
+        const forms = [
+            { id: 'income-form', modalId: 'income-modal' },
+            { id: 'salary-form', modalId: 'salary-modal' },
+            { id: 'subscription-form', modalId: 'subscription-modal' },
+            { id: 'expense-form', modalId: 'expense-modal' },
+            { id: 'savings-form', modalId: 'savings-modal' },
+            { id: 'goal-form', modalId: 'goal-modal' },
+            { id: 'investments-form', modalId: 'investments-modal' },
+            { id: 'debt-form', modalId: 'debt-modal' },
+            { id: 'loaner-form', modalId: 'loaner-modal' }
+        ];
+        
+        forms.forEach(form => {
+            const formElement = document.getElementById(form.id);
+            if (formElement) {
+                formElement.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    console.log(`Formulaire soumis: ${form.id}`);
+                    
+                    // Recueillir les données du formulaire
+                    const formData = new FormData(this);
+                    const data = {};
+                    for (const [key, value] of formData.entries()) {
+                        data[key] = value;
+                    }
+                    console.log('Données du formulaire:', data);
+                    
+                    // Fermer la modale
+                    closeModal(form.modalId);
+                    
+                    // Recharger les données après un court délai
+                    setTimeout(function() {
+                        if (typeof window.updateDashboard === 'function') {
+                            window.updateDashboard();
+                        }
+                    }, 100);
+                });
+            }
+        });
+        
+        // Exposer ces fonctions globalement
+        window.AppUI = {
+            openModal: openModal,
+            closeModal: closeModal
+        };
+    });
+    </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Vérifier si un utilisateur est connecté
+        const currentUser = sessionStorage.getItem('currentUser');
+        
+        if (!currentUser) {
+            // Rediriger vers la page de connexion si aucun utilisateur n'est connecté
+            window.location.href = 'index.html';
+            return;
+        }
+        
+        // Afficher l'email de l'utilisateur dans l'interface
+        const userEmailElement = document.getElementById('user-email');
+        if (userEmailElement) {
+            userEmailElement.textContent = currentUser;
+        }
+        
+        // Activer la navigation par défaut sur le tableau de bord
+        const dashboardNavItem = document.querySelector('.nav-item[data-section="dashboard"]');
+        if (dashboardNavItem) {
+            // Assurer que la section du tableau de bord est visible
+            const dashboardSection = document.getElementById('dashboard');
+            if (dashboardSection) {
+                // Enlever la classe active de toutes les sections
+                document.querySelectorAll('section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Ajouter la classe active à la section du tableau de bord
+                dashboardSection.classList.add('active');
+                
+                // Ajouter la classe active à l'élément de navigation du tableau de bord
+                dashboardNavItem.classList.add('active');
+            }
+        }
+        
+        // NOUVEAU CODE: Initialiser la navigation entre les sections
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // Enlever la classe active de tous les éléments de navigation et sections
+                document.querySelectorAll('.nav-item').forEach(navItem => {
+                    navItem.classList.remove('active');
+                });
+                document.querySelectorAll('section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Ajouter la classe active à l'élément cliqué et à la section correspondante
+                this.classList.add('active');
+                const sectionId = this.getAttribute('data-section');
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    section.classList.add('active');
+                }
+                
+                // Fermer le menu mobile s'il est ouvert (pour les petits écrans)
+                if (window.innerWidth <= 768) {
+                    const sidebar = document.querySelector('.sidebar');
+                    if (sidebar) {
+                        sidebar.classList.remove('active');
+                    }
+                }
+            });
+        });
+        
+        // Gérer le bouton de déconnexion
+        const logoutBtn = document.getElementById('logout-btn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', function() {
+                sessionStorage.removeItem('currentUser');
+                window.location.href = 'index.html';
+            });
+        }
+        
+        // Gérer le menu mobile
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        if (mobileMenuToggle) {
+            mobileMenuToggle.addEventListener('click', function() {
+                const sidebar = document.querySelector('.sidebar');
+                if (sidebar) {
+                    sidebar.classList.toggle('active');
+                }
+            });
+        }
+        
+        // Initialiser le tableau de bord
+        if (window.Dashboard && typeof window.Dashboard.initDashboard === 'function') {
+            window.Dashboard.initDashboard();
+        }
+    });
+    </script>
+    <!-- Script pour la mise à jour globale du tableau de bord -->
+<script>
+    // Fonction centrale pour mettre à jour le tableau de bord
+    function updateAllDashboardData() {
+        // Récupérer les données financières
+        let financeData = window.Storage.getUserFinanceData();
+        if (!financeData) return;
+        
+        // Revenus
+        const income = financeData.income ? (financeData.income.salary || 0) : 0;
+        const otherIncome = financeData.income && financeData.income.otherIncome ? 
+            financeData.income.otherIncome.reduce((total, item) => total + (parseFloat(item.amount) || 0), 0) : 0;
+        const totalIncome = income + otherIncome;
+        
+        // Afficher les revenus
+        const incomeValueElement = document.getElementById('income-value');
+        if (incomeValueElement) {
+            incomeValueElement.textContent = window.Storage.formatCurrency(totalIncome);
+        }
+        
+        // Dépenses - Abonnements
+        const subscriptionExpenses = financeData.subscriptions ? 
+            financeData.subscriptions.reduce((total, sub) => {
+                const amount = parseFloat(sub.amount) || 0;
+                if (sub.frequency === 'monthly') return total + amount;
+                else if (sub.frequency === 'quarterly') return total + (amount / 3);
+                else if (sub.frequency === 'yearly') return total + (amount / 12);
+                return total;
+            }, 0) : 0;
+        
+        // Dépenses - Quotidiennes (ce mois)
+        const currentMonth = new Date().getMonth();
+        const currentYear = new Date().getFullYear();
+        const dailyExpenses = financeData.expenses ? 
+            financeData.expenses.reduce((total, exp) => {
+                if (!exp.date) return total;
+                const expDate = new Date(exp.date);
+                if (expDate.getMonth() === currentMonth && expDate.getFullYear() === currentYear) {
+                    return total + (parseFloat(exp.amount) || 0);
+                }
+                return total;
+            }, 0) : 0;
+        
+        // Total des dépenses et affichage
+        const totalExpenses = subscriptionExpenses + dailyExpenses;
+        const expensesValueElement = document.getElementById('expenses-value');
+        if (expensesValueElement) {
+            expensesValueElement.textContent = window.Storage.formatCurrency(totalExpenses);
+        }
+        
+        // Épargne
+        const savingsValueElement = document.getElementById('savings-value');
+        if (savingsValueElement && financeData.savings) {
+            savingsValueElement.textContent = window.Storage.formatCurrency(financeData.savings.current || 0);
+        }
+        
+        // Investissements
+        const investmentsValueElement = document.getElementById('investments-value');
+        if (investmentsValueElement && financeData.investments) {
+            investmentsValueElement.textContent = window.Storage.formatCurrency(financeData.investments.current || 0);
+        }
+        
+        // Solde
+        const balance = totalIncome - totalExpenses;
+        const balanceValueElement = document.getElementById('balance-value');
+        if (balanceValueElement) {
+            balanceValueElement.textContent = window.Storage.formatCurrency(balance);
+        }
+        
+        console.log("Tableau de bord mis à jour avec succès");
+    }
+    
+    // Exécuter lors du chargement de la page
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mettre à jour le tableau de bord initial
+        updateAllDashboardData();
+        
+        // Surveillance des modifications du localStorage
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'financeUsers') {
+                updateAllDashboardData();
+            }
+        });
+    });
+    
+    // Interception de tous les formulaires pour mettre à jour le tableau de bord après soumission
+    document.addEventListener('submit', function(e) {
+        // Attendre un court instant pour que les données soient enregistrées
+        setTimeout(updateAllDashboardData, 100);
+    });
+    
+    // Surveiller les changements de section pour rafraîchir les données
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', function() {
+            // Si on va sur le tableau de bord, mettre à jour les données
+            if (this.getAttribute('data-section') === 'dashboard') {
+                updateAllDashboardData();
+            }
+        });
+    });
+    </script>
+    <!-- Script de débogage et d'assistance pour l'enregistrement des données -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log("Script d'assistance pour l'enregistrement des données chargé");
+        
+        // Fonction pour obtenir l'utilisateur actuel
+        function getCurrentUser() {
+            return sessionStorage.getItem('currentUser');
+        }
+        
+        // Fonction pour vérifier et initialiser les données de l'utilisateur
+        function checkAndInitUserData() {
+            const currentUser = getCurrentUser();
+            if (!currentUser) {
+                console.error("Aucun utilisateur connecté");
+                return null;
+            }
+            
+            // Récupérer les utilisateurs
+            let users = JSON.parse(localStorage.getItem('financeUsers') || '{}');
+            
+            // Vérifier si l'utilisateur existe
+            if (!users[currentUser]) {
+                console.log("Création d'un nouvel utilisateur:", currentUser);
+                users[currentUser] = {
+                    password: 'default',
+                    financeData: {
+                        income: { salary: 0, otherIncome: [] },
+                        subscriptions: [],
+                        expenses: [],
+                        savings: { current: 0, goals: [] },
+                        investments: { monthly: 0, current: 0 },
+                        debt: [],
+                        loaners: []
+                    }
+                };
+                
+                // Sauvegarder les utilisateurs
+                localStorage.setItem('financeUsers', JSON.stringify(users));
+            }
+            
+            // S'assurer que financeData existe
+            if (!users[currentUser].financeData) {
+                console.log("Initialisation des données financières pour:", currentUser);
+                users[currentUser].financeData = {
+                    income: { salary: 0, otherIncome: [] },
+                    subscriptions: [],
+                    expenses: [],
+                    savings: { current: 0, goals: [] },
+                    investments: { monthly: 0, current: 0 },
+                    debt: [],
+                    loaners: []
+                };
+                
+                // Sauvegarder les utilisateurs
+                localStorage.setItem('financeUsers', JSON.stringify(users));
+            }
+            
+            return users[currentUser].financeData;
+        }
+        
+        // Fonction pour sauvegarder les données financières
+        function saveFinanceData(data) {
+            const currentUser = getCurrentUser();
+            if (!currentUser) {
+                console.error("Aucun utilisateur connecté");
+                return false;
+            }
+            
+            let users = JSON.parse(localStorage.getItem('financeUsers') || '{}');
+            
+            if (!users[currentUser]) {
+                users[currentUser] = { password: 'default' };
+            }
+            
+            users[currentUser].financeData = data;
+            
+            localStorage.setItem('financeUsers', JSON.stringify(users));
+            
+            console.log("Données financières sauvegardées pour:", currentUser);
+            return true;
+        }
+        
+        // Gestionnaires directs pour les formulaires
+        
+        // 1. Formulaire de salaire
+        const salaryForm = document.getElementById('salary-form');
+        if (salaryForm) {
+            salaryForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                console.log("Formulaire de salaire soumis");
+                
+                const salaryInput = document.getElementById('salary-amount');
+                if (!salaryInput) {
+                    console.error("Champ de salaire non trouvé");
+                    return;
+                }
+                
+                const salaryAmount = parseFloat(salaryInput.value);
+                console.log("Montant du salaire:", salaryAmount);
+                
+                // Obtenir les données financières
+                const financeData = checkAndInitUserData();
+                if (!financeData) return;
+                
+                // Mettre à jour le salaire
+                if (!financeData.income) financeData.income = {};
+                financeData.income.salary = salaryAmount;
+                
+                // Sauvegarder les données
+                if (saveFinanceData(financeData)) {
+                    alert("Salaire enregistré avec succès!");
+                    
+                    // Mettre à jour l'interface
+                    const salaryValue = document.getElementById('salary-value');
+                    if (salaryValue) {
+                        salaryValue.textContent = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(salaryAmount);
+                    }
+                    
+                    // Fermer la modale
+                    document.getElementById('salary-modal').style.display = 'none';
+                }
+            });
+        }
+        
+        // 2. Formulaire de revenu
+        const incomeForm = document.getElementById('income-form');
+        if (incomeForm) {
+            incomeForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                console.log("Formulaire de revenu soumis");
+                
+                const descriptionInput = document.getElementById('income-description');
+                const amountInput = document.getElementById('income-amount');
+                const dateInput = document.getElementById('income-date');
+                
+                if (!descriptionInput || !amountInput || !dateInput) {
+                    console.error("Champs du formulaire de revenu non trouvés");
+                    return;
+                }
+                
+                const description = descriptionInput.value;
+                const amount = parseFloat(amountInput.value);
+                const date = dateInput.value;
+                
+                console.log("Nouveau revenu:", { description, amount, date });
+                
+                // Obtenir les données financières
+                const financeData = checkAndInitUserData();
+                if (!financeData) return;
+                
+                // Ajouter le revenu
+                if (!financeData.income) financeData.income = {};
+                if (!financeData.income.otherIncome) financeData.income.otherIncome = [];
+                
+                financeData.income.otherIncome.push({
+                    id: Date.now(),
+                    description,
+                    amount,
+                    date
+                });
+                
+                // Sauvegarder les données
+                if (saveFinanceData(financeData)) {
+                    alert("Revenu ajouté avec succès!");
+                    
+                    // Réinitialiser le formulaire
+                    this.reset();
+                    
+                    // Fermer la modale
+                    document.getElementById('income-modal').style.display = 'none';
+                    
+                    // Mettre à jour la liste des revenus
+                    updateIncomeList(financeData);
+                }
+            });
+        }
+        
+        // 3. Formulaire d'abonnement
+        const subscriptionForm = document.getElementById('subscription-form');
+        if (subscriptionForm) {
+            subscriptionForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                console.log("Formulaire d'abonnement soumis");
+                
+                const serviceInput = document.getElementById('subscription-service');
+                const amountInput = document.getElementById('subscription-amount');
+                const frequencyInput = document.getElementById('subscription-frequency');
+                const dateInput = document.getElementById('subscription-date');
+                
+                if (!serviceInput || !amountInput || !frequencyInput || !dateInput) {
+                    console.error("Champs du formulaire d'abonnement non trouvés");
+                    return;
+                }
+                
+                const service = serviceInput.value;
+                const amount = parseFloat(amountInput.value);
+                const frequency = frequencyInput.value;
+                const date = dateInput.value;
+                
+                console.log("Nouvel abonnement:", { service, amount, frequency, date });
+                
+                // Obtenir les données financières
+                const financeData = checkAndInitUserData();
+                if (!financeData) return;
+                
+                // Ajouter l'abonnement
+                if (!financeData.subscriptions) financeData.subscriptions = [];
+                
+                financeData.subscriptions.push({
+                    id: Date.now(),
+                    service,
+                    amount,
+                    frequency,
+                    date
+                });
+                
+                // Sauvegarder les données
+                if (saveFinanceData(financeData)) {
+                    alert("Abonnement ajouté avec succès!");
+                    
+                    // Réinitialiser le formulaire
+                    this.reset();
+                    
+                    // Fermer la modale
+                    document.getElementById('subscription-modal').style.display = 'none';
+                    
+                    // Mettre à jour la liste des abonnements
+                    updateSubscriptionList(financeData);
+                }
+            });
+        }
+        
+        // 4. Formulaire de dépense
+        const expenseForm = document.getElementById('expense-form');
+        if (expenseForm) {
+            expenseForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                console.log("Formulaire de dépense soumis");
+                
+                const descriptionInput = document.getElementById('expense-description');
+                const amountInput = document.getElementById('expense-amount');
+                const categoryInput = document.getElementById('expense-category');
+                const dateInput = document.getElementById('expense-date');
+                
+                if (!descriptionInput || !amountInput || !categoryInput || !dateInput) {
+                    console.error("Champs du formulaire de dépense non trouvés");
+                    return;
+                }
+                
+                const description = descriptionInput.value;
+                const amount = parseFloat(amountInput.value);
+                const category = categoryInput.value;
+                const date = dateInput.value;
+                
+                console.log("Nouvelle dépense:", { description, amount, category, date });
+                
+                // Obtenir les données financières
+                const financeData = checkAndInitUserData();
+                if (!financeData) return;
+                
+                // Ajouter la dépense
+                if (!financeData.expenses) financeData.expenses = [];
+                
+                financeData.expenses.push({
+                    id: Date.now(),
+                    description,
+                    amount,
+                    category,
+                    date
+                });
+                
+                // Sauvegarder les données
+                if (saveFinanceData(financeData)) {
+                    alert("Dépense ajoutée avec succès!");
+                    
+                    // Réinitialiser le formulaire
+                    this.reset();
+                    
+                    // Fermer la modale
+                    document.getElementById('expense-modal').style.display = 'none';
+                    
+                    // Mettre à jour la liste des dépenses
+                    updateExpenseList(financeData);
+                }
+            });
+        }
+        
+        // Fonctions de mise à jour des listes
+        function updateIncomeList(financeData) {
+            // Mettre à jour la liste des revenus
+            const tableBody = document.getElementById('other-income-body');
+            if (!tableBody) return;
+            
+            tableBody.innerHTML = '';
+            
+            if (financeData.income && financeData.income.otherIncome) {
+                financeData.income.otherIncome.forEach(income => {
+                    const row = document.createElement('tr');
+                    
+                    // Description
+                    const descCell = document.createElement('td');
+                    descCell.textContent = income.description;
+                    descCell.setAttribute('data-label', 'Description');
+                    row.appendChild(descCell);
+                    
+                    // Montant
+                    const amountCell = document.createElement('td');
+                    amountCell.textContent = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(income.amount);
+                    amountCell.classList.add('amount', 'positive');
+                    amountCell.setAttribute('data-label', 'Montant');
+                    row.appendChild(amountCell);
+                    
+                    // Date
+                    const dateCell = document.createElement('td');
+                    dateCell.textContent = new Date(income.date).toLocaleDateString('fr-FR');
+                    dateCell.setAttribute('data-label', 'Date');
+                    row.appendChild(dateCell);
+                    
+                    // Actions
+                    const actionsCell = document.createElement('td');
+                    actionsCell.classList.add('table-actions');
+                    actionsCell.setAttribute('data-label', 'Actions');
+                    
+                    const deleteBtn = document.createElement('span');
+                    deleteBtn.classList.add('action-icon', 'delete-icon');
+                    deleteBtn.innerHTML = '🗑️';
+                    deleteBtn.title = 'Supprimer';
+                    deleteBtn.dataset.id = income.id;
+                    deleteBtn.addEventListener('click', function() {
+                        deleteIncome(income.id);
+                    });
+                    actionsCell.appendChild(deleteBtn);
+                    
+                    row.appendChild(actionsCell);
+                    tableBody.appendChild(row);
+                });
+            }
+        }
+        
+        function updateSubscriptionList(financeData) {
+            // Mettre à jour la liste des abonnements
+            const tableBody = document.getElementById('subscriptions-body');
+            if (!tableBody) return;
+            
+            tableBody.innerHTML = '';
+            
+            if (financeData.subscriptions) {
+                financeData.subscriptions.forEach(subscription => {
+                    const row = document.createElement('tr');
+                    
+                    // Service
+                    const serviceCell = document.createElement('td');
+                    serviceCell.textContent = subscription.service;
+                    serviceCell.setAttribute('data-label', 'Service');
+                    row.appendChild(serviceCell);
+                    
+                    // Montant
+                    const amountCell = document.createElement('td');
+                    amountCell.textContent = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(subscription.amount);
+                    amountCell.classList.add('amount', 'negative');
+                    amountCell.setAttribute('data-label', 'Montant');
+                    row.appendChild(amountCell);
+                    
+                    // Fréquence
+                    const frequencyCell = document.createElement('td');
+                    switch(subscription.frequency) {
+                        case 'monthly': frequencyCell.textContent = 'Mensuel'; break;
+                        case 'quarterly': frequencyCell.textContent = 'Trimestriel'; break;
+                        case 'yearly': frequencyCell.textContent = 'Annuel'; break;
+                        default: frequencyCell.textContent = subscription.frequency;
+                    }
+                    frequencyCell.setAttribute('data-label', 'Fréquence');
+                    row.appendChild(frequencyCell);
+                    
+                    // Date
+                    const dateCell = document.createElement('td');
+                    dateCell.textContent = new Date(subscription.date).toLocaleDateString('fr-FR');
+                    dateCell.setAttribute('data-label', 'Date de prélèvement');
+                    row.appendChild(dateCell);
+                    
+                    // Actions
+                    const actionsCell = document.createElement('td');
+                    actionsCell.classList.add('table-actions');
+                    actionsCell.setAttribute('data-label', 'Actions');
+                    
+                    const deleteBtn = document.createElement('span');
+                    deleteBtn.classList.add('action-icon', 'delete-icon');
+                    deleteBtn.innerHTML = '🗑️';
+                    deleteBtn.title = 'Supprimer';
+                    deleteBtn.dataset.id = subscription.id;
+                    deleteBtn.addEventListener('click', function() {
+                        deleteSubscription(subscription.id);
+                    });
+                    actionsCell.appendChild(deleteBtn);
+                    
+                    row.appendChild(actionsCell);
+                    tableBody.appendChild(row);
+                });
+            }
+        }
+        
+        function updateExpenseList(financeData) {
+            // Mettre à jour la liste des dépenses
+            const tableBody = document.getElementById('expenses-body');
+            if (!tableBody) return;
+            
+            tableBody.innerHTML = '';
+            
+            if (financeData.expenses) {
+                financeData.expenses.forEach(expense => {
+                    const row = document.createElement('tr');
+                    
+                    // Description
+                    const descCell = document.createElement('td');
+                    descCell.textContent = expense.description;
+                    descCell.setAttribute('data-label', 'Description');
+                    row.appendChild(descCell);
+                    
+                    // Montant
+                    const amountCell = document.createElement('td');
+                    amountCell.textContent = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(expense.amount);
+                    amountCell.classList.add('amount', 'negative');
+                    amountCell.setAttribute('data-label', 'Montant');
+                    row.appendChild(amountCell);
+                    
+                    // Catégorie
+                    const categoryCell = document.createElement('td');
+                    switch(expense.category) {
+                        case 'food': categoryCell.textContent = 'Alimentation'; break;
+                        case 'transport': categoryCell.textContent = 'Transport'; break;
+                        case 'leisure': categoryCell.textContent = 'Loisirs'; break;
+                        case 'shopping': categoryCell.textContent = 'Shopping'; break;
+                        case 'health': categoryCell.textContent = 'Santé'; break;
+                        default: categoryCell.textContent = 'Autre';
+                    }
+                    categoryCell.setAttribute('data-label', 'Catégorie');
+                    row.appendChild(categoryCell);
+                    
+                    // Date
+                    const dateCell = document.createElement('td');
+                    dateCell.textContent = new Date(expense.date).toLocaleDateString('fr-FR');
+                    dateCell.setAttribute('data-label', 'Date');
+                    row.appendChild(dateCell);
+                    
+                    // Actions
+                    const actionsCell = document.createElement('td');
+                    actionsCell.classList.add('table-actions');
+                    actionsCell.setAttribute('data-label', 'Actions');
+                    
+                    const deleteBtn = document.createElement('span');
+                    deleteBtn.classList.add('action-icon', 'delete-icon');
+                    deleteBtn.innerHTML = '🗑️';
+                    deleteBtn.title = 'Supprimer';
+                    deleteBtn.dataset.id = expense.id;
+                    deleteBtn.addEventListener('click', function() {
+                        deleteExpense(expense.id);
+                    });
+                    actionsCell.appendChild(deleteBtn);
+                    
+                    row.appendChild(actionsCell);
+                    tableBody.appendChild(row);
+                });
+            }
+        }
+        
+        // Fonctions de suppression
+        function deleteIncome(id) {
+            if (confirm("Êtes-vous sûr de vouloir supprimer ce revenu ?")) {
+                const financeData = checkAndInitUserData();
+                if (!financeData || !financeData.income || !financeData.income.otherIncome) return;
+                
+                financeData.income.otherIncome = financeData.income.otherIncome.filter(income => income.id !== id);
+                
+                if (saveFinanceData(financeData)) {
+                    alert("Revenu supprimé avec succès!");
+                    updateIncomeList(financeData);
+                }
+            }
+        }
+        
+        function deleteSubscription(id) {
+            if (confirm("Êtes-vous sûr de vouloir supprimer cet abonnement ?")) {
+                const financeData = checkAndInitUserData();
+                if (!financeData || !financeData.subscriptions) return;
+                
+                financeData.subscriptions = financeData.subscriptions.filter(sub => sub.id !== id);
+                
+                if (saveFinanceData(financeData)) {
+                    alert("Abonnement supprimé avec succès!");
+                    updateSubscriptionList(financeData);
+                }
+            }
+        }
+        
+        function deleteExpense(id) {
+            if (confirm("Êtes-vous sûr de vouloir supprimer cette dépense ?")) {
+                const financeData = checkAndInitUserData();
+                if (!financeData || !financeData.expenses) return;
+                
+                financeData.expenses = financeData.expenses.filter(exp => exp.id !== id);
+                
+                if (saveFinanceData(financeData)) {
+                    alert("Dépense supprimée avec succès!");
+                    updateExpenseList(financeData);
+                }
+            }
+        }
+        
+        // Initialiser les listes
+        const financeData = checkAndInitUserData();
+        if (financeData) {
+            updateIncomeList(financeData);
+            updateSubscriptionList(financeData);
+            updateExpenseList(financeData);
+        }
+    });
+    </script>
+    <!-- Scripts -->
+    <script src="js/storage.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/income.js"></script>
+    <script src="js/subscriptions.js"></script>
+    <script src="js/expenses.js"></script>
+    <script src="js/savings.js"></script>
+    <script src="js/investments.js"></script>
+    <script src="js/debt.js"></script>
+    <script src="js/loaners.js"></script>
+</body>
+</html>
